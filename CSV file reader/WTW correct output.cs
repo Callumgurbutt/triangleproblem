@@ -34,45 +34,12 @@ namespace CSV_file_reader
         }
         private static MinMax CalculateMinMaxDurationandProductCount(List<RowData> rows, List<string> norepeats)
         {
-            
             int Start = rows.Select(d => d.OriginYear).Min();
             int End = rows.Select(d => d.DevelopmentYear).Max();
             int Duration = End + 1 - Start;
             int NumberOfProducts = norepeats.Count;
             MinMax minmax = new MinMax(Start, End, NumberOfProducts);
             return minmax;
-        }
-        
-        private static RowData[] FindingAccumulatedValueAtSpecificYear(List<RowData> rows, List<string> norepeats, MinMax minmax)
-        {
-            RowData[] Accumulated = new RowData[rows.Count];
-            for (int l = 0; l < minmax.NumberOfProducts; l++)
-            {
-                for (int i = minmax.Start; i <= minmax.End; i++)
-                {
-                    double originTotal = 0;
-                    for (int j = i; j <= minmax.End; j++)
-                    {
-                        double currentIncrementalValue = 0;
-                        for (int k = 0; k < rows.Count; k++)
-                        {
-                            if (norepeats[l] == rows[k].Product)
-                            {
-                                if (i == rows[k].OriginYear)
-                                {
-                                    if (j == rows[k].DevelopmentYear)
-                                    {
-                                        currentIncrementalValue = rows[k].IncrementalYear;
-                                    }
-                                }
-                            }
-                            Accumulated[k] = new RowData(rows[l].Product, rows[i].OriginYear, rows[j].DevelopmentYear, originTotal);
-                        }
-                        originTotal += currentIncrementalValue;
-                    }
-                }
-            }
-            return Accumulated;
         }
         private static AccumulatedProducts AlgorithmCompressingList(MinMax minmax, List<RowData> rows, List<string> norepeats)
         {
@@ -108,7 +75,23 @@ namespace CSV_file_reader
             }
             return new AccumulatedProducts(minmax, products);
         }
+        private static void Output(AccumulatedProducts accumulatedProducts)
+        {
+            string fileName = "C:\\users\\callum\\Documents\\TWdata_output.csv";
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                MinMax range = accumulatedProducts.Range;
+                writer.WriteLine(range.Start + ", " + range.Duration);
+                foreach (var year in accumulatedProducts.Products )
+                {
+                   
+                }
+                // more stuff goes here
+            }
 
+            
+            
+        }
 
 
 
@@ -130,8 +113,7 @@ namespace CSV_file_reader
                     List<RowData> rows = ParseRawDataInToRows(readerdata);
                     List<string> distinctProducts = FindingDistinctProducts(rows);
                     MinMax minmax = CalculateMinMaxDurationandProductCount(rows, distinctProducts);
-                    double yearSpecificIncrementalValue = FindingIncrementalValueAtSpecificYear(rows, distinctProducts, l, i, j);
-                    AlgorithmCompressingListAndOutputtingResult(minmax, rows, distinctProducts);
+                    AccumulatedProducts accumulatedProducts = AlgorithmCompressingList(minmax, rows, distinctProducts);
                     Console.Write(minmax.Start); Console.Write("  "); Console.WriteLine(minmax.End + 1 - minmax.Start);
                 }
             }
