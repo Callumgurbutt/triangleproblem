@@ -8,7 +8,6 @@ namespace CSV_file_reader
 {
     interface Parse
     {
-        //input = 4 columns
-        //Convert columns 2,3 to int,4 to double
+        //set rowdata
     }
 }

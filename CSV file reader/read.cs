@@ -11,11 +11,6 @@ namespace CSV_file_reader
     {
         /*using(var readerdata = new StreamReader();
         read input file
-        split into 4 columns
-        skip header
-        return List<string> product;
-        return List<string> OriginYear;
-        return List<string> DevelopmentYear;
-        return List<string> IncrementalValue;*/
+        read into lines*/
     }
 }
