@@ -43,23 +43,25 @@ namespace CSV_file_reader
         }
         private static AccumulatedProducts AlgorithmCompressingList(MinMax minmax, List<RowData> rows, List<string> norepeats)
         {
-            List<double> accumulatedValues = null;
+            List<double> accumulatedValues= new List<double>();
             AccumulatedProduct[] products = new AccumulatedProduct[minmax.NumberOfProducts];
-            for (int l = 0; l < minmax.NumberOfProducts; l++)
+            for (int product = 0; product < minmax.NumberOfProducts; product++)
             {
-                for (int i = minmax.Start; i <= minmax.End; i++)
+                accumulatedValues.Clear();
+                for (int originYear = minmax.Start; originYear <= minmax.End; originYear++)
                 {
+
                     double originTotal = 0;
-                    for (int j = i; j <= minmax.End; j++)
+                    for (int developmentYear = originYear; developmentYear <= minmax.End; developmentYear++)
                     {
                         double currentIncrementalValue = 0;
                         for (int k = 0; k < rows.Count; k++)
                         {
-                            if (norepeats[l] == rows[k].Product)
+                            if (norepeats[product] == rows[k].Product)
                             {
-                                if (i == rows[k].OriginYear)
+                                if (originYear == rows[k].OriginYear)
                                 {
-                                    if (j == rows[k].DevelopmentYear)
+                                    if (developmentYear == rows[k].DevelopmentYear)
                                     {
                                         currentIncrementalValue = rows[k].IncrementalYear;
                                     }
@@ -67,11 +69,12 @@ namespace CSV_file_reader
                             }
                         }
                         originTotal += currentIncrementalValue;
+                        accumulatedValues.Add(originTotal);
                     }
-                    accumulatedValues.Add(originTotal); 
+                    
                 }
-                string name = norepeats[l] ;
-                products[l] = new AccumulatedProduct(name, accumulatedValues);
+                string name = norepeats[product] ;
+                products[product] = new AccumulatedProduct(name, accumulatedValues);
             }
             return new AccumulatedProducts(minmax, products);
         }
@@ -82,62 +85,34 @@ namespace CSV_file_reader
             {
                 MinMax range = accumulatedProducts.Range;
                 writer.WriteLine(range.Start + ", " + range.Duration);
-                foreach (var year in accumulatedProducts.Products )
+                
+                foreach (var product in accumulatedProducts.Products )
                 {
-                   
+                    string toOutput = string.Join(", ", product.Values);
+                    string finalOutput = product.Name + ", " + toOutput;
+                    writer.WriteLine(finalOutput);
                 }
-                // more stuff goes here
             }
-
-            
-            
         }
-
-
-
-
-
-
-
-
-
-
         static void Main(string[] args)
         {
-
             try
             {
-
                 using (var readerdata = new StreamReader("C:\\users\\callum\\Documents\\TWdata.csv"))
                 {
                     List<RowData> rows = ParseRawDataInToRows(readerdata);
                     List<string> distinctProducts = FindingDistinctProducts(rows);
                     MinMax minmax = CalculateMinMaxDurationandProductCount(rows, distinctProducts);
                     AccumulatedProducts accumulatedProducts = AlgorithmCompressingList(minmax, rows, distinctProducts);
-                    Console.Write(minmax.Start); Console.Write("  "); Console.WriteLine(minmax.End + 1 - minmax.Start);
+                    Output(accumulatedProducts);
                 }
             }
-
             catch (Exception e)
             {
                 Console.WriteLine("Could not read file due to" + e);
             }
-
             Console.ReadLine();
-
         }   
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             /*var rows = new List<RowData>();
                     string line;
                     readerdata.ReadLine();

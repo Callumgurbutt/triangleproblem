@@ -13,7 +13,7 @@ namespace CSV_file_reader
         public AccumulatedProduct(string name, IEnumerable<double> values)
         {
             this.Name = name;
-            this.Values = values;
+            this.Values = values.ToList();
 
         }
     }

@@ -13,7 +13,7 @@ namespace CSV_file_reader
         public AccumulatedProducts(MinMax range, IEnumerable<AccumulatedProduct> products)
         {
             this.Range = range;
-            this.Products = products;
+            this.Products = products.ToList();
 
         }
 
