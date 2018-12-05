@@ -82,7 +82,7 @@ namespace CSV_file_reader
 
         private static void Output(AccumulatedProducts accumulatedProducts)
         {
-            string fileName = "C:\\users\\callum\\Documents\\TWdata_output.csv";
+            string fileName = "C:\\users\\callum\\Documents\\WTW\\interleaved_productsoutput.csv";
             using (StreamWriter writer = new StreamWriter(fileName))
             {
                 MinMax range = accumulatedProducts.Range;
@@ -99,7 +99,7 @@ namespace CSV_file_reader
         {
             try
             {
-                using (var readerdata = new StreamReader("C:\\users\\callum\\Documents\\TWdata.csv"))
+                using (var readerdata = new StreamReader("C:\\users\\callum\\Documents\\WTW\\interleaved_products.csv"))
                 {
                     List<RowData> rows = ParseRawDataInToRows(readerdata);
                     List<string> distinctProducts = FindingDistinctProducts(rows);
