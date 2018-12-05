@@ -38,46 +38,48 @@ namespace CSV_file_reader
             int End = rows.Select(d => d.DevelopmentYear).Max();
             int Duration = End + 1 - Start;
             int NumberOfProducts = norepeats.Count;
-            MinMax minmax = new MinMax(Start, End, NumberOfProducts);
-            return minmax;
+            return new MinMax(Start, End, NumberOfProducts);
         }
         private static AccumulatedProducts AlgorithmCompressingList(MinMax minmax, List<RowData> rows, List<string> norepeats)
         {
-            List<double> accumulatedValues= new List<double>();
-            AccumulatedProduct[] products = new AccumulatedProduct[minmax.NumberOfProducts];
-            for (int product = 0; product < minmax.NumberOfProducts; product++)
+            List<double> accumulatedValues = new List<double>();
+            AccumulatedProduct[] products = new AccumulatedProduct[norepeats.Count];
+            int productCount = 0;
+            int totalNumberOfRows = rows.Count;
+
+            Dictionary<Tuple<string, int, int>, double> dictionary = rows.ToDictionary(
+                (rd) => new Tuple<string, int, int>(rd.Product, rd.OriginYear, rd.DevelopmentYear),
+                (rd) => rd.IncrementalYear);
+
+            foreach (var product in norepeats)
             {
                 accumulatedValues.Clear();
+                productCount++;
+            
                 for (int originYear = minmax.Start; originYear <= minmax.End; originYear++)
                 {
-
                     double originTotal = 0;
                     for (int developmentYear = originYear; developmentYear <= minmax.End; developmentYear++)
                     {
                         double currentIncrementalValue = 0;
-                        for (int k = 0; k < rows.Count; k++)
+
+                        Tuple<string, int, int> key = new Tuple<string, int, int>(product, originYear, developmentYear);
+                        if(dictionary.TryGetValue(key, out double rowValue))
                         {
-                            if (norepeats[product] == rows[k].Product)
-                            {
-                                if (originYear == rows[k].OriginYear)
-                                {
-                                    if (developmentYear == rows[k].DevelopmentYear)
-                                    {
-                                        currentIncrementalValue = rows[k].IncrementalYear;
-                                    }
-                                }
-                            }
+                            currentIncrementalValue = rowValue;
                         }
+                        
                         originTotal += currentIncrementalValue;
                         accumulatedValues.Add(originTotal);
                     }
-                    
                 }
-                string name = norepeats[product] ;
-                products[product] = new AccumulatedProduct(name, accumulatedValues);
+
+                products[productCount-1] = new AccumulatedProduct(product, accumulatedValues);
             }
+
             return new AccumulatedProducts(minmax, products);
         }
+
         private static void Output(AccumulatedProducts accumulatedProducts)
         {
             string fileName = "C:\\users\\callum\\Documents\\TWdata_output.csv";
@@ -85,7 +87,6 @@ namespace CSV_file_reader
             {
                 MinMax range = accumulatedProducts.Range;
                 writer.WriteLine(range.Start + ", " + range.Duration);
-                
                 foreach (var product in accumulatedProducts.Products )
                 {
                     string toOutput = string.Join(", ", product.Values);
@@ -105,75 +106,14 @@ namespace CSV_file_reader
                     MinMax minmax = CalculateMinMaxDurationandProductCount(rows, distinctProducts);
                     AccumulatedProducts accumulatedProducts = AlgorithmCompressingList(minmax, rows, distinctProducts);
                     Output(accumulatedProducts);
+                    Console.WriteLine("done");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Could not read file due to" + e);
+                Console.WriteLine(e);
             }
             Console.ReadLine();
-        }   
-            /*var rows = new List<RowData>();
-                    string line;
-                    readerdata.ReadLine();
-                    while ((line = readerdata.ReadLine()) != null)
-                    {
-                        var fields = line.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                        RowData data = new RowData(fields[0], int.Parse(fields[1]), int.Parse(fields[2]), double.Parse(fields[3]));
-                        rows.Add(data);
-                    }
-                    List<string> norepeats = rows.Select(d => d.Product).Distinct().ToList();
-                    int Start = rows.Select(d => d.OriginYear).Min();
-                    int End = rows.Select(d =>d.DevelopmentYear).Max();
-                    int Duration = End + 1 - Start;
-                    int NoP = norepeats.Count;
-                    string product2 = null;
-                    string product1 = null;
-                    string[] products = new string[NoP];
-                    for (int l = 0; l < NoP; l++)
-                    {
-                        product1 = null;
-                        for (int i = Start; i <= End; i++)
-                        {
-                            double originTotal = 0;
-                            for (int j = i; j <= End; j++)
-                            {
-                                double currentIncrementalValue = 0;
-                                for (int k = 0; k < rows.Count; k++)
-                                {
-                                    if (norepeats[l] == rows[k].Product)
-                                    {
-                                        if (i == rows[k].OriginYear)
-                                        {
-                                            if (j == rows[k].DevelopmentYear)
-                                            {
-                                                currentIncrementalValue = rows[k].IncrementalYear;
-                                            }
-                                        }
-                                    }
-                                }
-                                originTotal += currentIncrementalValue;
-                                if (i == End)
-                                {
-                                    if (j == End)
-                                    {
-                                        product1 += originTotal;
-                                    }
-                                    else
-                                    {
-                                        product1 += originTotal + ",";
-                                    }
-                                }
-                                else
-                                {
-                                    product1 += originTotal + ",";
-                                }
-                            }
-                        }
-                        product2= norepeats[l] += "," + product1;
-                        Console.WriteLine(product2);
-                        products[l]=product2;
-                    }*/
-        
+        }  
     }
 }
