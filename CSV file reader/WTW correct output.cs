@@ -78,7 +78,6 @@ namespace CSV_file_reader
 
             return new AccumulatedProducts(minmax, products);
         }
-
         private static void Output(AccumulatedProducts accumulatedProducts)
         {
             string fileName = "C:\\users\\callum\\Documents\\WTW\\interleaved_productsoutput.csv";
