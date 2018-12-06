@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSV_file_reader
 {
-    class AccumulatedProduct
+    class AccumulatedProduct : IAccumulatedProduct
     {
         public string Name { get; }
         public IEnumerable<double> Values { get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSV_file_reader
 {
-    class MinMax
+    class MinMax : IMinMax
     {
         public int Start { get; }
         public int End { get; }

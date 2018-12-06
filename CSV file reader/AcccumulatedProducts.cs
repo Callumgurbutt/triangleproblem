@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CSV_file_reader
 {
-    class AccumulatedProducts
+    class AccumulatedProducts : IAccumulatedProducts
     {
-        public MinMax Range { get; }
-        public IEnumerable<AccumulatedProduct> Products{get;}
-        public AccumulatedProducts(MinMax range, IEnumerable<AccumulatedProduct> products)
+        public IMinMax Range { get; }
+        public IEnumerable<IAccumulatedProduct> Products{get;}
+        public AccumulatedProducts(MinMax range, IEnumerable<IAccumulatedProduct> products)
         {
             this.Range = range;
             this.Products = products.ToList();

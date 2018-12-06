@@ -4,7 +4,6 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using CsvHelper;
 
 
 
@@ -49,7 +48,7 @@ namespace CSV_file_reader
 
             Dictionary<Tuple<string, int, int>, double> dictionary = rows.ToDictionary(
                 (rd) => new Tuple<string, int, int>(rd.Product, rd.OriginYear, rd.DevelopmentYear),
-                (rd) => rd.IncrementalYear);
+                (rd) => rd.IncrementalValue);
 
             foreach (var product in norepeats)
             {
@@ -85,7 +84,7 @@ namespace CSV_file_reader
             string fileName = "C:\\users\\callum\\Documents\\WTW\\interleaved_productsoutput.csv";
             using (StreamWriter writer = new StreamWriter(fileName))
             {
-                MinMax range = accumulatedProducts.Range;
+                IMinMax range = accumulatedProducts.Range;
                 writer.WriteLine(range.Start + ", " + range.Duration);
                 foreach (var product in accumulatedProducts.Products )
                 {
