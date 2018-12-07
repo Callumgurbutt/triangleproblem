@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace CSV_file_reader
 {
-    interface Parse
+    public interface IOutputBuilder
     {
-        //set rowdata
+        string BuildSummaryLine(IMinMax range);
+
+        List<string> BuildProductLines(IAccumulatedProducts products);
     }
 }

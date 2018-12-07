@@ -11,8 +11,6 @@ namespace CSV_file_reader
 {
     class Program
     {
-
-        
         private static List<RowData> ParseRawDataInToRows(StreamReader rawdata)
         {
             var rows = new List<RowData>( );
@@ -67,15 +65,12 @@ namespace CSV_file_reader
                         {
                             currentIncrementalValue = rowValue;
                         }
-                        
                         originTotal += currentIncrementalValue;
                         accumulatedValues.Add(originTotal);
                     }
                 }
-
                 products[productCount-1] = new AccumulatedProduct(product, accumulatedValues);
             }
-
             return new AccumulatedProducts(minmax, products);
         }
         private static void Output(AccumulatedProducts accumulatedProducts)

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CSV_file_reader
 {
-    interface Algorithm
+    interface IReader
     {
-
+        IEnumerable<RowData> Rows(IEnumerable<IRowData> GetRows);
     }
 }
