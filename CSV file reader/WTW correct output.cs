@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 
 
+
 namespace CSV_file_reader
 {
     class Program
@@ -100,6 +101,10 @@ namespace CSV_file_reader
                     AccumulatedProducts accumulatedProducts = AlgorithmCompressingList(minmax, rows, distinctProducts);
                     Output(accumulatedProducts);
                     Console.WriteLine("done");
+                    /*IReader;
+                    IAccumulator;
+                    IOutputBuilder;
+                    IWriter;*/                    
                 }
             }
             catch (Exception e)
