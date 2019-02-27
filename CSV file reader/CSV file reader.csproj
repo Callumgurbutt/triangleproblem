@@ -46,6 +46,7 @@
     <Compile Include="AcccumulatedProducts.cs" />
     <Compile Include="AccumulatedProduct.cs" />
     <Compile Include="Accumulator.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="CsvFileWriter.cs" />
     <Compile Include="IAccumulatedProduct.cs" />
     <Compile Include="IAccumulatedProducts.cs" />

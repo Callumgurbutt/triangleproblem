@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using CSV_file_reader;
 
 namespace User_interface
 {
@@ -19,7 +20,7 @@ namespace User_interface
         {
             InitializeComponent();
         }
-        private void fileFinder_Click(object sender, EventArgs e)
+        private void FileFinder_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "CSV|*.csv";
@@ -29,27 +30,12 @@ namespace User_interface
                 inputFileName = ofd.FileName;
             }
         }
-        private void outputFileNameBox_TextChanged(object sender, EventArgs e)
+        private void OutputFileNameBox_TextChanged(object sender, EventArgs e)
         {
-            string outputName = Convert.ToString(outputFileNameBox.Text);
+            string outputName = Convert.ToString(OutputFileNameBox.Text);
             int index = inputFileName.LastIndexOf("\\");
             if (index > 0)
                  outputFileName = inputFileName.Substring(0, index + 1) + outputName + ".csv";
-        }
-        public class RowData
-        {
-            public string Product { get; }
-            public int OriginYear { get; }
-            public int DevelopmentYear { get; }
-            public double IncrementalValue { get; }
-
-            public RowData(string product, int origin, int development, double incremental)
-            {
-                this.Product = product;
-                this.OriginYear = origin;
-                this.DevelopmentYear = development;
-                this.IncrementalValue = incremental;
-            }
         }
         public class MinMax
         {
@@ -80,11 +66,6 @@ namespace User_interface
                 return rows;
             }
         }
-        public interface IAccumulatedProduct
-        {
-            string Name { get; }
-            IEnumerable<double> Values { get; }
-        }
         class AccumulatedProducts
         {
             public MinMax Range { get; }
@@ -106,13 +87,6 @@ namespace User_interface
                 this.Values = values.ToList();
 
             }
-        }
-        public interface IMinMax
-        {
-            int Duration { get; }
-            int End { get; }
-            int NumberOfProducts { get; }
-            int Start { get; }
         }
         private static List<string> FindingDistinctProducts(List<RowData> rows)
         {
@@ -191,7 +165,7 @@ namespace User_interface
             }
             return rows;
         }
-        private void analyser_Click(object sender, EventArgs e)
+        private void Analyser_Click(object sender, EventArgs e)
         {
             try
             {
@@ -203,7 +177,7 @@ namespace User_interface
                     AccumulatedProducts accumulatedProducts = AlgorithmCompressingList(minmax, rows, distinctProducts);
                     Output(accumulatedProducts);
                     Console.WriteLine("done");
-                    finished.Text = "finished";
+                    Finished.Text = "finished";
                 }
             }
             catch (Exception )
@@ -211,6 +185,10 @@ namespace User_interface
                 Console.WriteLine("error");
             }
             Console.ReadLine();
+        }
+        private void Finished_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

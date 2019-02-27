@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.fileFinder = new System.Windows.Forms.Button();
-            this.analyser = new System.Windows.Forms.Button();
+            this.FileFinder = new System.Windows.Forms.Button();
+            this.Analyser = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.outputFileNameBox = new System.Windows.Forms.TextBox();
-            this.finished = new System.Windows.Forms.TextBox();
+            this.OutputFileNameBox = new System.Windows.Forms.TextBox();
+            this.Finished = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox2
@@ -44,25 +44,25 @@
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = "Please type the file name for the output in the box below";
             // 
-            // fileFinder
+            // FileFinder
             // 
-            this.fileFinder.Location = new System.Drawing.Point(65, 85);
-            this.fileFinder.Name = "fileFinder";
-            this.fileFinder.Size = new System.Drawing.Size(362, 32);
-            this.fileFinder.TabIndex = 3;
-            this.fileFinder.Text = "Please select the file you wish you analyse";
-            this.fileFinder.UseVisualStyleBackColor = true;
-            this.fileFinder.Click += new System.EventHandler(this.fileFinder_Click);
+            this.FileFinder.Location = new System.Drawing.Point(65, 85);
+            this.FileFinder.Name = "FileFinder";
+            this.FileFinder.Size = new System.Drawing.Size(362, 32);
+            this.FileFinder.TabIndex = 3;
+            this.FileFinder.Text = "Please select the file you wish you analyse";
+            this.FileFinder.UseVisualStyleBackColor = true;
+            this.FileFinder.Click += new System.EventHandler(this.FileFinder_Click);
             // 
-            // analyser
+            // Analyser
             // 
-            this.analyser.Location = new System.Drawing.Point(347, 222);
-            this.analyser.Name = "analyser";
-            this.analyser.Size = new System.Drawing.Size(80, 42);
-            this.analyser.TabIndex = 4;
-            this.analyser.Text = "analyse";
-            this.analyser.UseVisualStyleBackColor = true;
-            this.analyser.Click += new System.EventHandler(this.analyser_Click);
+            this.Analyser.Location = new System.Drawing.Point(347, 222);
+            this.Analyser.Name = "Analyser";
+            this.Analyser.Size = new System.Drawing.Size(80, 42);
+            this.Analyser.TabIndex = 4;
+            this.Analyser.Text = "analyse";
+            this.Analyser.UseVisualStyleBackColor = true;
+            this.Analyser.Click += new System.EventHandler(this.Analyser_Click);
             // 
             // textBox1
             // 
@@ -71,32 +71,32 @@
             this.textBox1.Size = new System.Drawing.Size(362, 22);
             this.textBox1.TabIndex = 5;
             // 
-            // outputFileNameBox
+            // OutputFileNameBox
             // 
-            this.outputFileNameBox.Location = new System.Drawing.Point(65, 194);
-            this.outputFileNameBox.Name = "outputFileNameBox";
-            this.outputFileNameBox.Size = new System.Drawing.Size(362, 22);
-            this.outputFileNameBox.TabIndex = 6;
-            this.outputFileNameBox.TextChanged += new System.EventHandler(this.outputFileNameBox_TextChanged);
+            this.OutputFileNameBox.Location = new System.Drawing.Point(65, 194);
+            this.OutputFileNameBox.Name = "OutputFileNameBox";
+            this.OutputFileNameBox.Size = new System.Drawing.Size(362, 22);
+            this.OutputFileNameBox.TabIndex = 6;
+            this.OutputFileNameBox.TextChanged += new System.EventHandler(this.OutputFileNameBox_TextChanged);
             // 
-            // finished
+            // Finished
             // 
-            this.finished.Location = new System.Drawing.Point(347, 270);
-            this.finished.Name = "finished";
-            this.finished.Size = new System.Drawing.Size(80, 22);
-            this.finished.TabIndex = 7;
-            this.finished.TextChanged += new System.EventHandler(this.finished_TextChanged);
+            this.Finished.Location = new System.Drawing.Point(347, 270);
+            this.Finished.Name = "Finished";
+            this.Finished.Size = new System.Drawing.Size(80, 22);
+            this.Finished.TabIndex = 7;
+            this.Finished.TextChanged += new System.EventHandler(this.Finished_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 314);
-            this.Controls.Add(this.finished);
-            this.Controls.Add(this.outputFileNameBox);
+            this.Controls.Add(this.Finished);
+            this.Controls.Add(this.OutputFileNameBox);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.analyser);
-            this.Controls.Add(this.fileFinder);
+            this.Controls.Add(this.Analyser);
+            this.Controls.Add(this.FileFinder);
             this.Controls.Add(this.textBox2);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -107,11 +107,11 @@
 
         #endregion
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button fileFinder;
-        private System.Windows.Forms.Button analyser;
+        private System.Windows.Forms.Button FileFinder;
+        private System.Windows.Forms.Button Analyser;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox outputFileNameBox;
-        private System.Windows.Forms.TextBox finished;
+        private System.Windows.Forms.TextBox OutputFileNameBox;
+        private System.Windows.Forms.TextBox Finished;
     }
 }
 
