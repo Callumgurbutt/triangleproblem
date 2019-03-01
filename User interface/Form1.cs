@@ -15,7 +15,6 @@ namespace User_interface
     {
         string inputFileName;
         string outputFileName;
-
         public Form1()
         {
             InitializeComponent();
@@ -190,6 +189,7 @@ namespace User_interface
         {
 
         }
+        
     }
 }
 
