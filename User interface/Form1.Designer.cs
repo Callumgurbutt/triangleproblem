@@ -85,7 +85,6 @@
             this.Finished.Name = "Finished";
             this.Finished.Size = new System.Drawing.Size(80, 22);
             this.Finished.TabIndex = 7;
-            this.Finished.TextChanged += new System.EventHandler(this.Finished_TextChanged);
             // 
             // Form1
             // 

@@ -61,6 +61,7 @@
     <Compile Include="Reader.cs" />
     <Compile Include="RowData.cs" />
     <Compile Include="IOutputBuilder.cs" />
+    <Compile Include="TriangleProcessor.cs" />
     <Compile Include="WTW correct output.cs" />
   </ItemGroup>
   <ItemGroup>
